@@ -3,9 +3,7 @@ package com.diyiliu.servlet;
 import com.diyiliu.dao.StudentDao;
 import com.diyiliu.model.Student;
 
-import javax.annotation.Resource;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,10 +16,8 @@ import java.util.List;
  * Update: 2016-01-04 10:28
  */
 
-@WebServlet(name = "StudentServlet", urlPatterns = "/student")
 public class StudentServlet extends HttpServlet{
 
-    @Resource
     private StudentDao studentDao;
 
     @Override
@@ -42,4 +38,9 @@ public class StudentServlet extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.doPost(req, resp);
     }
+
+    public void setStudentDao(StudentDao studentDao) {
+        this.studentDao = studentDao;
+    }
+
 }

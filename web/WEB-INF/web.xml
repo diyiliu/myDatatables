@@ -12,4 +12,14 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+
+    <servlet>
+        <servlet-name>studentServlet</servlet-name>
+        <servlet-class>com.diyiliu.servlet.DelegatingServletProxy</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>studentServlet</servlet-name>
+        <url-pattern>/student</url-pattern>
+    </servlet-mapping>
 </web-app>
