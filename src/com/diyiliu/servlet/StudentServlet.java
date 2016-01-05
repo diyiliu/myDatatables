@@ -2,6 +2,8 @@ package com.diyiliu.servlet;
 
 import com.diyiliu.dao.StudentDao;
 import com.diyiliu.model.Student;
+import com.diyiliu.model.TableData;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,12 +25,28 @@ public class StudentServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)  {
 
+        System.out.println("doPost() ...");
+
+        int draw = Integer.valueOf(req.getParameter("draw"));
+        int start = Integer.valueOf(req.getParameter("start"));
+        int length = Integer.valueOf(req.getParameter("length"));
+
+        ObjectMapper objectMapper = new ObjectMapper();
         try {
-            System.out.println("doPost() ...");
+            int total = studentDao.findCount();
+            List<Student> list = studentDao.findAll(start, length);
+            TableData tableData = new TableData();
+            tableData.setData(list);
+            tableData.setDraw(draw);
+            tableData.setRecordsTotal(total);
+            tableData.setRecordsFiltered(total);
 
-            List<Student> list = studentDao.findAll();
+            //objectMapper.writeValue(resp.getWriter(), list);
+            String result = objectMapper.writeValueAsString(tableData);
+            System.out.println(result);
 
-            System.out.println(list.size());
+            resp.setCharacterEncoding("UTF-8");
+            resp.getWriter().write(result);
         } catch (Exception e) {
             e.printStackTrace();
         }
