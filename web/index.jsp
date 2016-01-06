@@ -5,8 +5,9 @@
 %>
 <html>
 <head>
-    <link type="text/css" rel="stylesheet" href="./css/bootstrap.css">
-    <link type="text/css" rel="stylesheet" href="./css/dataTables.bootstrap.css">
+    <!--<link type="text/css" rel="stylesheet" href="./css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="./css/dataTables.bootstrap.css">-->
+    <link type="text/css" rel="stylesheet" href="./css/jquery.dataTables.css">
     <title>Data tables</title>
 </head>
 <body>
@@ -496,10 +497,21 @@
 
 <script type="text/javascript" src="./js/jquery.js"></script>
 <script type="text/javascript" src="./js/jquery.dataTables.js"></script>
-<script type="text/javascript" src="./js/dataTables.bootstrap.js"></script>
+<!--<script type="text/javascript" src="./js/dataTables.bootstrap.js"></script>-->
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#example').DataTable();
+        var table = $('#example').DataTable({
+            "columnDefs": [ {
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<button>Click!</button>"
+            } ]
+        })
+
+        $('#example tbody').on( 'click', 'button', function () {
+            var data = table.row( $(this).parents('tr') ).data();
+            alert( data[0] +"'s salary is: "+ data[4] );
+        } );
     });
 </script>
 </body>

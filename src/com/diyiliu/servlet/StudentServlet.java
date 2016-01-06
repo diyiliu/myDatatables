@@ -18,14 +18,14 @@ import java.util.List;
  * Update: 2016-01-04 10:28
  */
 
-public class StudentServlet extends HttpServlet{
+public class StudentServlet extends HttpServlet {
 
     private StudentDao studentDao;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)  {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
 
-        System.out.println("doPost() ...");
+        //System.out.println("doPost() ...");
 
         int draw = Integer.valueOf(req.getParameter("draw"));
         int start = Integer.valueOf(req.getParameter("start"));
@@ -42,11 +42,12 @@ public class StudentServlet extends HttpServlet{
             tableData.setRecordsFiltered(total);
 
             //objectMapper.writeValue(resp.getWriter(), list);
-            String result = objectMapper.writeValueAsString(tableData);
-            System.out.println(result);
+            //String result = objectMapper.writeValueAsString(tableData);
+            //System.out.println(result);
 
             resp.setCharacterEncoding("UTF-8");
-            resp.getWriter().write(result);
+            //resp.getWriter().write(result);
+            objectMapper.writeValue(resp.getWriter(), tableData);
         } catch (Exception e) {
             e.printStackTrace();
         }
